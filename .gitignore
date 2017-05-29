@@ -5,3 +5,5 @@
 !*.m
 !.gitignore
 
+# I need this .mat file
+!NBI_optseq_sequences.mat
