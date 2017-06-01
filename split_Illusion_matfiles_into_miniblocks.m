@@ -8,25 +8,25 @@ clc
 %% Fetch dirs and files
 
 % Get behaviour dir full path
-Illusion_dirs = get_subdir_regex('behaviour_data','only_Illusion_mat_files','NBI'); char(Illusion_dirs)
+matfiles_dirs = get_subdir_regex(pwd,'behaviour_data','only_Illusion_mat_files','NBI'); char(matfiles_dirs)
 
 % Extract subject dir name
-[~, subject_dir_name] = get_parent_path(Illusion_dirs,1);
+[~, subject_dir_name] = get_parent_path(matfiles_dirs,1);
 
 % Fetch the fullpaht of each .mat file for each subject
-Illusion_files = get_subdir_regex_files(Illusion_dirs,'.mat$'); char(Illusion_files)
+Illusion_files = get_subdir_regex_files(matfiles_dirs,'.mat$'); char(Illusion_files)
 
 
 %% Make new dir (delete the previous if exist)
 
 % Make new dirs according to each subject dir name
 
-spmReady_mat_files_dirs = r_mkdir( [ pwd filesep 'behaviour_data' filesep 'spmReady_mat_files' ],subject_dir_name); char(spmReady_mat_files_dirs)
+spmReady_mat_files_dirs = r_mkdir( [ pwd filesep 'behaviour_data' filesep 'spmReady_mat_files' ],subject_dir_name); %char(spmReady_mat_files_dirs)
 do_delete(spmReady_mat_files_dirs,0)
-spmReady_mat_files_dirs = r_mkdir( [ pwd filesep 'behaviour_data' filesep 'spmReady_mat_files' ],subject_dir_name); char(spmReady_mat_files_dirs)
+spmReady_mat_files_dirs = r_mkdir( [ pwd filesep 'behaviour_data' filesep 'spmReady_mat_files' ],subject_dir_name); %char(spmReady_mat_files_dirs)
 
 for mb = 1 : 16
-    mb_dir{mb} = r_mkdir( spmReady_mat_files_dirs, sprintf('miniblock_%d',mb)); char(mb_dir{mb})
+    mb_dir{mb} = r_mkdir( spmReady_mat_files_dirs, sprintf('miniblock_%d',mb)); %char(mb_dir{mb})
 end
 
 
