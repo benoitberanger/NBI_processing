@@ -8,15 +8,20 @@ clc
 %% Fetch dirs and files
 
 % Get behaviour dir full path
-subject_dirs = get_subdir_regex(pwd,'img','NBI'); char(subject_dirs)
+subject_dirs = get_subdir_regex(pwd,'img','NBI'); char(subject_dirs) % do not overwrite the subject already splitted
 
 % Get Illusion dir full path
 Illusion_dirs = get_subdir_regex_multi(subject_dirs,'ILLUSION_run\d$');
+Illusion_dirs_ref = get_subdir_regex_multi(subject_dirs,'ILLUSION_run\d_BLIP$');
 
-% Fetch the fullpaht of each .mat file for each subject
+% Fetch the fullpaht of each .nii file for each subject
 raw_images = get_subdir_regex_files(Illusion_dirs,'^f.*run\d.nii'); % char(raw_images)
 unzip_volume(raw_images) % Unzip files if needed
 raw_images = get_subdir_regex_files(Illusion_dirs,'^f.*run\d.nii'); % char(raw_images)
+
+raw_images_ref = get_subdir_regex_files(Illusion_dirs_ref,'^f.*run\d_BLIP.nii'); % char(raw_images)
+unzip_volume(raw_images_ref) % Unzip files if needed
+raw_images_ref = get_subdir_regex_files(Illusion_dirs_ref,'^f.*run\d_BLIP.nii'); % char(raw_images)
 
 
 %% Make new dir (delete the previous if exist)
@@ -27,6 +32,11 @@ for mb = 1 : 16
     mb_dir{mb} = r_mkdir( subject_dirs, sprintf('miniblock_%d',mb)); %char(mb_dir{mb})
     do_delete(mb_dir{mb},0);
     mb_dir{mb} = r_mkdir( subject_dirs, sprintf('miniblock_%d',mb)); %char(mb_dir{mb})
+    
+    mb_dir_ref{mb} = r_mkdir( subject_dirs, sprintf('miniblock_%d_ref',mb)); %char(mb_dir{mb})
+    do_delete(mb_dir_ref{mb},0);
+    mb_dir_ref{mb} = r_mkdir( subject_dirs, sprintf('miniblock_%d_ref',mb)); %char(mb_dir{mb})
+    
 end
 
 
@@ -97,6 +107,15 @@ for subj = 1 : length(subject_dirs)
             mb_dir{mb}(subj),...
             'move');
         
+        r_movefile(...
+            {raw_images_ref{subj}(run,:)},...
+            {[mb_dir_ref{mb}{subj} 'f_miniblock_' num2str(mb) '_ref.nii']},...
+            'copy');
+        
+        fprintf('copy ref from %s to %s \n',...
+            raw_images_ref{subj}(run,:),...
+            [mb_dir_ref{mb}{subj} 'f_miniblock_' num2str(mb) '_ref.nii'])
+        
         
         %% miniblock_2
         
@@ -118,6 +137,14 @@ for subj = 1 : length(subject_dirs)
             mb_dir{mb}(subj),...
             'move');
         
+        r_movefile(...
+            {raw_images_ref{subj}(run,:)},...
+            {[mb_dir_ref{mb}{subj} 'f_miniblock_' num2str(mb) '_ref.nii']},...
+            'copy');
+        
+        fprintf('copy ref from %s to %s \n',...
+            raw_images_ref{subj}(run,:),...
+            [mb_dir_ref{mb}{subj} 'f_miniblock_' num2str(mb) '_ref.nii'])
         
     end
 end
