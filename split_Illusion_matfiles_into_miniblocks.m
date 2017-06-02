@@ -26,7 +26,7 @@ do_delete(spmReady_mat_files_dirs,0)
 spmReady_mat_files_dirs = r_mkdir( [ pwd filesep 'behaviour_data' filesep 'spmReady_mat_files' ],subject_dir_name); %char(spmReady_mat_files_dirs)
 
 for mb = 1 : 16
-    mb_dir{mb} = r_mkdir( spmReady_mat_files_dirs, sprintf('miniblock_%d',mb)); %char(mb_dir{mb})
+    mb_dir{mb} = r_mkdir( spmReady_mat_files_dirs, sprintf('miniblock_%.2d',mb)); %char(mb_dir{mb})
 end
 
 
@@ -155,7 +155,8 @@ for sbj = 1 : length( Illusion_files )
             
             % Save
             fprintf('saving in %s\n', mb_dir{(run-1)*2+mb}{sbj})
-            save( [mb_dir{(run-1)*2+mb}{sbj} 'miniblock_' num2str((run-1)*2+mb)], 'names', 'onsets', 'durations' )
+            save(sprintf('%sminiblock_%.2d',mb_dir{(run-1)*2+mb}{sbj},(run-1)*2+mb), 'names', 'onsets', 'durations' )
+            
             
         end
         
