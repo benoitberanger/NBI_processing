@@ -7,15 +7,15 @@
 
 %% Init
 
-close all
-clear all
+clear
 clc
 
+global subject_regex
 
 %% Fetch dirs and files
 
 % Get behaviour dir full path
-behav_raw_dirs = get_subdir_regex('behaviour_data','raw','NBI'); char(behav_raw_dirs)
+behav_raw_dirs = get_subdir_regex('behaviour_data','raw',subject_regex); char(behav_raw_dirs)
 
 % Extract subject dir name
 [~, subject_dir_name] = get_parent_path(behav_raw_dirs,1); 

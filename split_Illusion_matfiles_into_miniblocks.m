@@ -1,14 +1,14 @@
 %% Init
 
-close all
 clear
 clc
 
+global subject_regex
 
 %% Fetch dirs and files
 
 % Get behaviour dir full path
-matfiles_dirs = get_subdir_regex(pwd,'behaviour_data','only_Illusion_mat_files','NBI'); char(matfiles_dirs)
+matfiles_dirs = get_subdir_regex(pwd,'behaviour_data','only_Illusion_mat_files',subject_regex); char(matfiles_dirs)
 
 % Extract subject dir name
 [~, subject_dir_name] = get_parent_path(matfiles_dirs,1);
@@ -25,9 +25,9 @@ spmReady_mat_files_dirs = r_mkdir( [ pwd filesep 'behaviour_data' filesep 'spmRe
 do_delete(spmReady_mat_files_dirs,0)
 spmReady_mat_files_dirs = r_mkdir( [ pwd filesep 'behaviour_data' filesep 'spmReady_mat_files' ],subject_dir_name); %char(spmReady_mat_files_dirs)
 
-for mb = 1 : 16
-    mb_dir{mb} = r_mkdir( spmReady_mat_files_dirs, sprintf('miniblock_%.2d',mb)); %char(mb_dir{mb})
-end
+% for mb = 1 : 16
+%     mb_dir{mb} = r_mkdir( spmReady_mat_files_dirs, sprintf('miniblock_%.2d',mb)); %char(mb_dir{mb})
+% end
 
 
 %% Re-process each beahaviour file to generate names onsets durations
@@ -154,9 +154,10 @@ for sbj = 1 : length( Illusion_files )
             end
             
             % Save
-            fprintf('saving in %s\n', mb_dir{(run-1)*2+mb}{sbj})
-            save(sprintf('%sminiblock_%.2d',mb_dir{(run-1)*2+mb}{sbj},(run-1)*2+mb), 'names', 'onsets', 'durations' )
-            
+%             fprintf('saving in %s\n', mb_dir{(run-1)*2+mb}{sbj})
+%             save(sprintf('%sminiblock_%.2d',mb_dir{(run-1)*2+mb}{sbj},(run-1)*2+mb), 'names', 'onsets', 'durations' )
+            fprintf('saving %s in %s\n', sprintf('miniblock_%.2d',(run-1)*2+mb), spmReady_mat_files_dirs{sbj})
+            save(sprintf('%sminiblock_%.2d',spmReady_mat_files_dirs{sbj},(run-1)*2+mb), 'names', 'onsets', 'durations' )
             
         end
         

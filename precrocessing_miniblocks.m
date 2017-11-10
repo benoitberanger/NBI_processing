@@ -1,11 +1,13 @@
-clear all
+clear
 clc
+
+global subject_regex
 
 %% Prepare paths and regexp
 
 chemin=[ pwd filesep 'img'];
 
-suj = get_subdir_regex(chemin,'NBI');
+suj = get_subdir_regex(chemin,subject_regex);
 % suj = get_subdir_regex(chemin);
 %to see the content
 char(suj)
@@ -13,7 +15,7 @@ char(suj)
 %functional and anatomic subdir
 par.dfonc_reg='miniblock_\d+$';
 par.dfonc_reg_oposit_phase = 'miniblock_\d+_ref$';
-par.danat_reg='t1mpr';
+par.danat_reg='(t1mpr)|(T1w)';
 
 %for the preprocessing : Volume selecytion
 par.anat_file_reg  = '^s.*nii'; %le nom generique du volume pour l'anat
