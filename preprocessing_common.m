@@ -13,8 +13,8 @@ suj = get_subdir_regex(chemin,subject_regex);
 char(suj)
 
 %functional and anatomic subdir
-par.dfonc_reg='miniblock_\d+$';
-par.dfonc_reg_oposit_phase = 'miniblock_\d+_ref$';
+par.dfonc_reg='((MTMSTL)|(MTMSTR)|(miniblock_\d+)|(RETINO))$';
+par.dfonc_reg_oposit_phase = '((MTMSTL)|(MTMSTR)|(miniblock_\d+)|(RETINO))_BLIP$';
 par.danat_reg='(t1mpr)|(T1w)';
 
 %for the preprocessing : Volume selecytion
@@ -59,6 +59,7 @@ fo = addprefixtofilenames(fanat,'brain_');
 do_fsl_mult(concat_cell(fm,fanat),fo);
 
 
+
 %% Preprocess fMRI runs
 
 %realign and reslice
@@ -90,7 +91,7 @@ j_coregister=job_coregister(fmean,fanat,fo,par)
 % fy = get_subdir_regex_files(anat,'^y',1)
 % j_apply_normalize=job_apply_normalize(fy,fo,par)
 
-% %smooth the data
-% ffonc = get_subdir_regex_files(dfonc,'^wutrf')
-% par.smooth = [8 8 8];
-% j_smooth=job_smooth(ffonc,par)
+%smooth the data
+ffonc = get_subdir_regex_files(dfonc,'^utrf')
+par.smooth = [6 6 6];
+j_smooth=job_smooth(ffonc,par)
