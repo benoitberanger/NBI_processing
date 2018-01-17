@@ -23,6 +23,9 @@ behav_raw_dirs = get_subdir_regex('behaviour_data','raw',subject_regex); char(be
 % Fetch the fullpaht of each .mat file for each subject
 Illusion_files = get_subdir_regex_files(behav_raw_dirs,'_Illusion_.*\d.mat$'); char(Illusion_files)
 
+for i = 1 :length(Illusion_files)
+    assert( size(Illusion_files{i},1) == 8, 'error : %d stim files found in %d', size(Illusion_files{1},1), i)
+end
 
 %% Make new dir (delete the previous if exist)
 

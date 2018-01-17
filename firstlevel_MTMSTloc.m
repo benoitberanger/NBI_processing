@@ -30,7 +30,7 @@ par.run=1;
 dfonc = get_subdir_regex_multi(subjectdir,par.dfonc_reg) % ; char(dfonc{:})
 % dfonc_op = get_subdir_regex_multi(subjectdir,par.dfonc_reg_oposit_phase)% ; char(dfonc_op{:})
 % dfoncall = get_subdir_regex_multi(subjectdir,{par.dfonc_reg,par.dfonc_reg_oposit_phase })% ; char(dfoncall{:})
-anat = get_subdir_regex_one(subjectdir,par.danat_reg)% ; char(anat) %should be no warning
+% anat = get_subdir_regex_one(subjectdir,par.danat_reg)% ; char(anat) %should be no warning
 
 
 %% prepare first level

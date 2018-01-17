@@ -14,8 +14,8 @@ matfiles_dirs = get_subdir_regex(pwd,'behaviour_data','only_MTMSTloc_mat_files',
 [~, subject_dir_name] = get_parent_path(matfiles_dirs,1);
 
 % Fetch the fullpaht of each .mat file for each subject
-MTMST_left_files = get_subdir_regex_files(matfiles_dirs,'MTMST_Left_MRI_1.mat$'); char(MTMST_left_files)
-MTMST_right_files = get_subdir_regex_files(matfiles_dirs,'MTMST_Right_MRI_1.mat$'); char(MTMST_right_files)
+MTMST_left_files = get_subdir_regex_files(matfiles_dirs,'MTMST_Left_MRI_1.mat$',1); char(MTMST_left_files)
+MTMST_right_files = get_subdir_regex_files(matfiles_dirs,'MTMST_Right_MRI_1.mat$',1); char(MTMST_right_files)
 
 
 %% Make new dir (delete the previous if exist)

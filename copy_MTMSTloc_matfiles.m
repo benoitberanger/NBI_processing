@@ -19,7 +19,7 @@ behav_raw_dirs = get_subdir_regex('behaviour_data','raw',subject_regex); char(be
 [~, subject_dir_name] = get_parent_path(behav_raw_dirs,1); 
 
 % Fetch the fullpaht of each .mat file for each subject
-MTMSTloc_files = get_subdir_regex_files(behav_raw_dirs,'_MTMST_.*\d.mat$'); char(MTMSTloc_files)
+MTMSTloc_files = get_subdir_regex_files(behav_raw_dirs,'_MTMST_.*\d.mat$',2); char(MTMSTloc_files)
 
 
 %% Make new dir (delete the previous if exist)
