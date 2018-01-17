@@ -52,12 +52,11 @@ j_apply_normalise=job_apply_normalize(fy,fanat,par)
 %% Brain extract
 
 ff=get_subdir_regex_files(anat,'^c[123]',3);
-fo=addsufixtofilenames(anat,'/mask_brain');
+fo=addsuffixtofilenames(anat,'/mask_brain');
 do_fsl_add(ff,fo)
 fm=get_subdir_regex_files(anat,'^mask_b',1); fanat=get_subdir_regex_files(anat,'^s.*nii',1);
 fo = addprefixtofilenames(fanat,'brain_');
 do_fsl_mult(concat_cell(fm,fanat),fo);
-
 
 
 %% Preprocess fMRI runs
@@ -91,7 +90,3 @@ j_coregister=job_coregister(fmean,fanat,fo,par)
 % fy = get_subdir_regex_files(anat,'^y',1)
 % j_apply_normalize=job_apply_normalize(fy,fo,par)
 
-%smooth the data
-ffonc = get_subdir_regex_files(dfonc,'^utrf')
-par.smooth = [6 6 6];
-j_smooth=job_smooth(ffonc,par)

@@ -12,7 +12,6 @@ subject_regex = 'NBI_';
 % subject_regex = '(TRAL)';
 setenv('FSLOUTPUTTYPE','NIFTI')
 
-
 %% Prepare stim files
 
 copy_Illusion_matfiles
@@ -41,8 +40,8 @@ clean_MTMST
 preprocessing_common
 
 % Specific :
-preprocessing_MTMSTloc % smooth
-
+preprocessing_MTMSTloc   % smooth
+preprocessing_Retinotopy % smooth
 
 %% First-level
 

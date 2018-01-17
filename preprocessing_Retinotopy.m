@@ -14,8 +14,8 @@ suj = get_subdir_regex(chemin,subject_regex);
 char(suj)
 
 %functional and anatomic subdir
-par.dfonc_reg='((MTMSTL)|(MTMSTR))$';
-par.dfonc_reg_oposit_phase = '((MTMSTL)|(MTMSTR))+_BLIP$';
+par.dfonc_reg='RETINO$';
+par.dfonc_reg_oposit_phase = 'RETINO_BLIP$';
 
 %for the preprocessing : Volume selecytion
 par.anat_file_reg  = '^s.*nii'; %le nom generique du volume pour l'anat
@@ -33,6 +33,6 @@ dfonc = get_subdir_regex_multi(suj,par.dfonc_reg) % ; char(dfonc{:})
 %% Preprocess fMRI runs
 
 %smooth the data
-ffonc = get_subdir_regex_files(dfonc,'^utrf')
+ffonc = get_subdir_regex_files(dfonc,'^utrf.*nii$')
 par.smooth = [6 6 6];
 j_smooth=job_smooth(ffonc,par)
