@@ -14,12 +14,12 @@ char(subjectdir)
 
 %functional and anatomic subdir
 par.dfonc_reg='MTMST[LR]$';
-par.dfonc_reg_oposit_phase = 'MTMST[LR]_BLIP$';
-par.danat_reg='(t1mpr)|(T1w)';
+% par.dfonc_reg_oposit_phase = 'MTMST[LR]_BLIP$';
+% par.danat_reg='(t1mpr)|(T1w)';
 
 %for the preprocessing : Volume selecytion
-par.anat_file_reg  = '^s.*nii'; %le nom generique du volume pour l'anat
-par.file_reg  = '^f.*nii'; %le nom generique du volume pour les fonctionel
+% par.anat_file_reg  = '^s.*nii'; %le nom generique du volume pour l'anat
+% par.file_reg  = '^f.*nii'; %le nom generique du volume pour les fonctionel
 
 par.display=0;
 par.run=1;
@@ -31,6 +31,12 @@ dfonc = get_subdir_regex_multi(subjectdir,par.dfonc_reg) % ; char(dfonc{:})
 % dfonc_op = get_subdir_regex_multi(subjectdir,par.dfonc_reg_oposit_phase)% ; char(dfonc_op{:})
 % dfoncall = get_subdir_regex_multi(subjectdir,{par.dfonc_reg,par.dfonc_reg_oposit_phase })% ; char(dfoncall{:})
 % anat = get_subdir_regex_one(subjectdir,par.danat_reg)% ; char(anat) %should be no warning
+
+
+%% Get files
+
+ffonc = get_subdir_regex_files(dfonc,'^utrf.*nii',1)
+nrRun = size(ffonc{1},1);
 
 
 %% prepare first level

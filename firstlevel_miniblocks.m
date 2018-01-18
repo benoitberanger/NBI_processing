@@ -14,12 +14,12 @@ char(subjectdir)
 
 %functional and anatomic subdir
 par.dfonc_reg='miniblock_\d+$';
-par.dfonc_reg_oposit_phase = 'miniblock_\d+_ref$';
-par.danat_reg='t1mpr';
+% par.dfonc_reg_oposit_phase = 'miniblock_\d+_ref$';
+% par.danat_reg='t1mpr';
 
 %for the preprocessing : Volume selecytion
-par.anat_file_reg  = '^s.*nii'; %le nom generique du volume pour l'anat
-par.file_reg  = '^f.*nii'; %le nom generique du volume pour les fonctionel
+% par.anat_file_reg  = '^s.*nii'; %le nom generique du volume pour l'anat
+% par.file_reg  = '^f.*nii'; %le nom generique du volume pour les fonctionel
 
 par.display=0;
 par.run=1;

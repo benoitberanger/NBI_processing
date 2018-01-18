@@ -5,6 +5,11 @@ file = '/mnt/data/benoit/Protocol/NBI/fmri/img/2016_05_20_NBI_ROCA/S21_MBB3_ep2d
 
 mri = ft_read_mri(file)
 
+% mrview coordinates
+mri.anatomy = flip(mri.anatomy,2); 
+mri.anatomy = permute(mri.anatomy,[2 1 3 4]);
+
+
 %% Shortcuts
 
 Sro = size(mri.anatomy,1); % size ReadOut
@@ -15,36 +20,37 @@ St  = size(mri.anatomy,4); % size Time
 
 %% Plot slice
 
-% close all
-% 
-% figure
-% image(mri.anatomy(:,:,15,10))
-% colormap(gray(2^15))
+figure
+image(mri.anatomy(:,:,15,10))
+axis equal
+colormap(gray(2^15))
 
 
 %% Time series
 
 S = reshape(mri.anatomy,[Sro*Sph*Ssl St]);
-
+S = S - mean(S,2);
 
 %% Filter
 
 rotation_req = 1/48 % Hz
 
-S_filtBP = ft_preproc_bandpassfilter(S,1/0.900,[0.010 0.030]);
+S_filtBP = ft_preproc_bandpassfilter(S,1/0.900,[0.015 0.035]);
+% S_filtBP = ft_preproc_bandpassfilter(S,1/0.900,[0.015 0.100]);
 
 
 %%
 
-close all
 figure
 image(S_filtBP)
 
 
-%% 
+%% Plot single voxel time serie
 
-vx = sub2ind(size(mri.anatomy),8, 43, 15);
-plotFFT(S_filtBP(vx,:),1/0.900,[0 0.1])
+voxel_index = sub2ind(size(mri.anatomy), 28, 8, 15);
+
+plotFFT(S       (voxel_index,:), 1/0.900, [0 0.5])
+plotFFT(S_filtBP(voxel_index,:), 1/0.900, [0 0.5])
 
 
 %%
