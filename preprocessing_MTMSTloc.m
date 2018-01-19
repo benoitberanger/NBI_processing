@@ -1,7 +1,7 @@
 clear
 clc
 
-global subject_regex
+global subject_regex nbi
 
 
 %% Prepare paths and regexp
@@ -11,7 +11,7 @@ chemin=[ pwd filesep 'img'];
 suj = get_subdir_regex(chemin,subject_regex);
 % suj = get_subdir_regex(chemin);
 %to see the content
-char(suj)
+% char(suj)
 
 %functional and anatomic subdir
 par.dfonc_reg='((MTMSTL)|(MTMSTR))$';
@@ -25,14 +25,10 @@ par.display=0;
 par.run=1;
 
 
-%% Get files paths
-
-dfonc = get_subdir_regex_multi(suj,par.dfonc_reg) % ; char(dfonc{:})
-
-
 %% Preprocess fMRI runs
 
 %smooth the data
-ffonc = get_subdir_regex_files(dfonc,'^utrf.*nii$')
+ffonc = nbi.getSerie('run_MTMST[RL]').getVolume('^utrf').toJob;
 par.smooth = [6 6 6];
 j_smooth=job_smooth(ffonc,par)
+nbi.getSerie('run_MTMST[RL]').addVolume('^sutrf.*nii','sutrf')
