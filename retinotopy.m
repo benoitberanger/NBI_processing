@@ -3,7 +3,7 @@ clc
 
 %% Path & files
 
-maindir = fullfile(pwd,'test');
+maindir = fullfile(pwd,'test','func');
 volumename = 'sutrf395_S21_MBB3_ep2d_TR900_3iso_RETINO.nii';
 stimname   = 'TOMO_Retinotopy_MRI_1.mat';
 
