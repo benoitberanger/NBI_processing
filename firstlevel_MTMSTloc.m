@@ -31,28 +31,14 @@ par.run=1;
 
 to_exclude = {'Pilote01','TAMY','PIET','ROCA'};
 
-% Properties of this class ?
-propOfClass = properties( nbi );
-
-% New instance of this class
-nbi_temp = exam;
-
-for ex = 1 : length(nbi)
-    
-    % Copy each properties
-    for p = 1 : length(propOfClass)
-        nbi_temp(ex).(propOfClass{p}) = nbi(ex).(propOfClass{p});
-    end
-    
-end
+nbi_temp = nbi.copyObject;
 
 for ex = 1 : length(to_exclude)
     nbi_temp.getExam(to_exclude{ex}).is_incomplete = 1;
 end
 
 [ completeExams, incompleteExams ] = nbi_temp.removeIncomplete;
-completeExams   = completeExams';
-incompleteExams = incompleteExams';
+
 dfonc_TR900  = incompleteExams.getSerie('run_MTMST').toJob;
 dfonc_TR1000 = completeExams.  getSerie('run_MTMST').toJob;
 
